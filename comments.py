@@ -31,7 +31,7 @@ else:
     day -=1
         
 date = str(year) + "-" + str(month) + "-" + str(day)
-date = "2017-11-9"
+date = "2017-11-13"
 dateFile = "/home/ubuntu/imgur_python/galleryIds/" + date
 images = open(dateFile, 'r')
 

@@ -6,7 +6,7 @@ for subdir, dirs, files in os.walk('nodes'):
     for file in files:
         curFile = open(subdir + '/' +file, 'r')
         for line in curFile:
-            line.replace(',', ' ')
+            line = line.replace(',', ' ')
             L = line.split()           
             for l in L:
                 clean = l.strip()
