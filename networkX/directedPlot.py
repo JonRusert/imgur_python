@@ -27,28 +27,23 @@ def acquireNodes(directory):
                         
     return nodes
 
-def createNormalGraph(nodes):
-    G = Graph()
+def createDirectedGraph(nodes):
+    G = DiGraph()
     
     #iterate through nodes and add each key as a node
     for node in nodes:
         G.add_node(node)
 
-    #iterate through nodes again adding the edges between nodes
+    #iterate through nodes again adding directed from the replying node to the original
     for node in nodes:
         edges = nodes[node]
         for edge in edges:
-            G.add_edge(node, edge)
+            G.add_edge(edge, node)
 
     return G
         
-
-def analyzeGraph(graph):
-    print "Average clustering coefficient of graph:" + str(average_clustering(graph)) + "\n"
-    print "Diameter of graph:" + str(diameter(graph)) + "\n"
     
-G = createNormalGraph(acquireNodes('../nodes'))
-analyzeGraph(G)
+G = createDirectedGraph(acquireNodes('../nodes'))
 #pos = spring_layout(G)
 #draw(G, pos)
 #plt.savefig("NormalImgurGraph.png", format="PNG")
