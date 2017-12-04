@@ -2,8 +2,16 @@ import os
 
 nodes =[]
 dup = 0
+f = []
+fdup = 0
+
 for subdir, dirs, files in os.walk('nodes'):
     for file in files:
+        if file not in f:
+            f.append(file)
+        else:
+            fdup +=1
+            
         curFile = open(subdir + '/' +file, 'r')
         for line in curFile:
             line = line.replace(',', ' ')
@@ -19,4 +27,6 @@ for subdir, dirs, files in os.walk('nodes'):
 
 
 print("unique: %d" % len(nodes))
-print("dup : %d" % dup)
+print("dup: %d" % dup)
+print("unique files: %d" % len(f))
+print("fdup: %d" % fdup) 

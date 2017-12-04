@@ -44,11 +44,49 @@ def createNormalGraph(nodes):
         
 
 def analyzeGraph(graph):
-    print "Average clustering coefficient of graph:" + str(average_clustering(graph)) + "\n"
-    print "Diameter of graph:" + str(diameter(graph)) + "\n"
-    
-G = createNormalGraph(acquireNodes('../nodes'))
-analyzeGraph(G)
-#pos = spring_layout(G)
-#draw(G, pos)
-#plt.savefig("NormalImgurGraph.png", format="PNG")
+    out = open("normalGraphOut", 'a')
+    '''out.write("Number of nodes:" + str(number_of_nodes(graph)) + "\n")
+    out.write("Number of edges:" + str(number_of_edges(graph)) + "\n")
+    out.write("Average clustering coefficient of graph:" + str(average_clustering(graph)) + "\n")
+   
+    if(is_connected(graph)):
+        out.write("Graph is connected\n")
+        out.write("Diameter of graph:" + str(diameter(graph)) + "\n")
+    else:
+        out.write("Graph is NOT connected")
+
+    '''
+    out.write("Degree distribution:\n" + str(degree_histogram(graph)) + "\n")
+    out.close()
+ 
+
+G = createNormalGraph(acquireNodes('../nodes/'))
+#analyzeGraph(G)
+degreeDist = degree_histogram(G)
+xAxis = []
+for i in range(0,100):
+    if degreeDist[i] != 0:
+        xAxis.append(i)
+degreeDistnoZeros = [degreeDist[x] for x in range(0,100) if degreeDist[x] != 0 ] 
+        
+plt.plot(xAxis, degreeDistnoZeros)
+print(degreeDistnoZeros)
+print(xAxis)
+plt.savefig("DegreeDistribution100.png")
+
+'''for i in range(0, 50, 5):
+    if i == 0:
+        count = 1
+    else:
+        count = i
+        
+    curN = '../graphNodes/' + str(count) + '/' 
+    G = createNormalGraph(acquireNodes(curN))
+    #analyzeGraph(G)
+    pos = random_layout(G)
+    draw_networkx_nodes(G, pos, node_size=0.1)
+    draw_networkx_edges(G,pos)
+
+    outPut = 'NormalGraphPlots/NormalImgurGraph' + str(count) + '.png'
+    plt.savefig(outPut, dpi=1000)
+'''

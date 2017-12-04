@@ -42,8 +42,38 @@ def createDirectedGraph(nodes):
 
     return G
         
-    
+
+def analyzeGraph(graph):
+    out = open("directedGraphOut", 'w')
+    out.write("Number of nodes:" + str(number_of_nodes(graph)) + "\n")
+    out.write("Number of edges:" + str(number_of_edges(graph)) + "\n")
+    out.write("Average clustering coefficient of graph:" + str(average_clustering(graph)) + "\n")
+    out.write("Diameter of graph:" + str(diameter(graph)) + "\n")
+    out.close()
+
 G = createDirectedGraph(acquireNodes('../nodes'))
-#pos = spring_layout(G)
-#draw(G, pos)
-#plt.savefig("NormalImgurGraph.png", format="PNG")
+#analyzeGraph(G)
+pos = random_layout(G)
+draw_networkx_nodes(G, pos, node_size=0.1)
+draw_networkx_edges(G,pos)
+outPut = 'DirectedGraphPlots/DirectedImgurGraph.png'
+plt.savefig(outPut, dpi=1000)
+    
+
+'''for i in range(0, 50, 5):
+    if i == 0:
+        count = 1
+    else:
+        count = i
+        
+    curN = '../graphNodes/' + str(count) + '/'
+    G = createDirectedGraph(acquireNodes(curN))
+    #analyzeGraph(G)
+    pos = random_layout(G)
+    draw_networkx_nodes(G, pos, node_size=0.1)
+    draw_networkx_edges(G,pos)
+    
+    outPut = 'DirectedGraphPlots/DirectedImgurGraph' + str(count) + '.png'
+    plt.savefig(outPut, dpi=1000)
+'''
+                                                   
