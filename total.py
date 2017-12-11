@@ -7,8 +7,9 @@ fdup = 0
 
 for subdir, dirs, files in os.walk('nodes'):
     for file in files:
-        if file not in f:
-            f.append(file)
+        url = file.split('-')[3]
+        if url not in f:
+            f.append(url)
         else:
             fdup +=1
             

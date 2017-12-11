@@ -4,6 +4,7 @@ import random
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+import math
 
 def acquireNodes(directory):
     nodes = {}
@@ -63,16 +64,21 @@ def analyzeGraph(graph):
 G = createNormalGraph(acquireNodes('../nodes/'))
 #analyzeGraph(G)
 degreeDist = degree_histogram(G)
+degreeDistnoZeros = [degreeDist[x] for x in range(0,len(degreeDist)) if degreeDist[x] != 0 ] 
 xAxis = []
-for i in range(0,100):
+for i in range(0,len(degreeDist)):
     if degreeDist[i] != 0:
         xAxis.append(i)
-degreeDistnoZeros = [degreeDist[x] for x in range(0,100) if degreeDist[x] != 0 ] 
-        
-plt.plot(xAxis, degreeDistnoZeros)
-print(degreeDistnoZeros)
-print(xAxis)
-plt.savefig("DegreeDistribution100.png")
+
+logY = [math.log(degreeDistnoZeros[y],2) for y in range(0,len(degreeDistnoZeros))]
+logX = [math.log(xAxis[x],2) for x in range(0,len(xAxis))]
+
+               
+plt.loglog(xAxis, degreeDistnoZeros)
+#plt.plot(logX, logY)
+print(logY)
+print(logX)
+plt.savefig("DegreeDistributionLogLog.png")
 
 '''for i in range(0, 50, 5):
     if i == 0:
